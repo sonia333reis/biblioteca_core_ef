@@ -20,7 +20,7 @@ namespace biblioteca_core_att.Controllers
         {
             var usuarios = _context.Usuarios.ToList();
 
-            ViewData["msg"] = "Existem [" +usuarios.Count+"] usuários cadastrados";
+            ViewData["msg"] = "Existem [" + usuarios.Count + "] usuários cadastrados";
 
             return View(usuarios);
         }
@@ -30,26 +30,92 @@ namespace biblioteca_core_att.Controllers
             return View();
         }
 
+        
         [HttpPost]
-        public IActionResult Criar()
+        public IActionResult Criar([Bind("UsuarioID, Nome, Cpf, Idade, Email")] Usuario usuario)
         {
+            if (ModelState.IsValid)
+            {
+                try 
+                {
+                    _context.Add(usuario);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                } catch (Exception e) 
+                {
+                    ViewData["msg"] = ViewData["msg"] + " Erro ao salvar informações no banco de dados. Message ["+e+"]";
+                    throw;
+                }
+            }
 
+            ViewData["msg"] = "Não foi possível completar operação";
+            return View(usuario);
         }
 
-        public IActionResult Editar()
+        public IActionResult Editar(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                ViewData["msg"] = "Obrigatório informar usuário";
+                return NotFound();
+            }
+
+            var usuario = _context.Usuarios.Find(id);
+            if (usuario == null)
+            {
+                ViewData["msg"] = "Usuário não encontrado";
+                return NotFound();
+            }
+
+            return View(usuario);
         }
 
+        
         [HttpPost]
-        public IActionResult Editar()
+        public IActionResult Editar(int id, [Bind("UsuarioID, Nome, Cpf, Idade, Email")] Usuario usuario)
         {
-            
+            if (id != usuario.UsuarioID)
+            {
+                ViewData["msg"] = "Comportamento inesperado";
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(usuario);
+                    _context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    ViewData["msg"] = ViewData["msg"] + " Erro ao salvar informações no banco de dados. Message [" + e + "]";
+                    throw;
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
-        public void Excluir()
+        public IActionResult Excluir(int? id)
         {
-            
+            try
+            {
+                if (id == null)
+                {
+                    ViewData["msg"] = "Obrigatório informar usuário";
+                    return NotFound();
+                }
+                Usuario usuario = _context.Usuarios.Find(id);
+                _context.Remove(usuario);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                ViewData["msg"] = ViewData["msg"] + " Erro ao salvar informações no banco de dados. Message [" + e + "]";
+                throw;
+            }
+            return RedirectToAction("Index");
         }
     }
 }
