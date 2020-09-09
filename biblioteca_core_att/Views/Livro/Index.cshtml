@@ -1,0 +1,48 @@
+﻿@model IEnumerable<biblioteca_core_att.Models.Livro>
+
+@{
+    ViewData["Title"] = "Biblioteca - Livros";
+    var msg = ViewData["msg"];
+}
+
+<div>
+    <h3 class="center">Livros</h3>
+    <br />
+    <p class="alert alert-secondary">
+        @msg
+    </p>
+
+    <br />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Lançamento</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nome</td>
+                    <td>@item.Autor</td>
+                    <td>@item.Lancamento</td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@item.LivroID">Editar</a> |
+                        <a asp-action="Excluir" asp-route-id="@item.LivroID">Deletar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <br />
+
+    <p>
+        <a asp-action="Criar" class="btn btn-outline-success">Novo Livro</a>
+    </p>
+
+</div>
