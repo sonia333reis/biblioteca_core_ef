@@ -64,7 +64,7 @@ namespace biblioteca_core_att.Controllers
             var livro = _context.Livros.Find(id);
             if (livro == null)
             {
-                ViewData["msg"] = "Usuário não encontrado";
+                ViewData["msg"] = "Livro não encontrado";
                 return NotFound();
             }
 
@@ -103,7 +103,7 @@ namespace biblioteca_core_att.Controllers
             {
                 if (id == null)
                 {
-                    ViewData["msg"] = "Obrigatório informar usuário";
+                    ViewData["msg"] = "Obrigatório informar livro";
                     return NotFound();
                 }
                 Livro livro = _context.Livros.Find(id);

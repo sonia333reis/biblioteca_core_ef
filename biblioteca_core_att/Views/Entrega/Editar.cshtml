@@ -1,0 +1,37 @@
+﻿@model biblioteca_core_att.Models.Entrega
+
+@{
+    ViewData["Title"] = "Biblioteca - Reservas";
+    var msg = ViewData["msg"];
+}
+
+<div>
+    <h3 class="center">Editar Reservas</h3>
+    <br />
+    @msg
+    <br />
+
+    <form asp-action="Editar">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="EntregaID" />
+        <div class="row">
+            <div class="col-4">
+                <label class="control-label">Nome do Usuário:</label>
+                <select asp-for="UsuarioID" class="form-control" asp-items="ViewBag.UsuarioID"></select>
+                <span asp-validation-for="UsuarioID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label class="control-label">Nome do Livro:</label>
+                <select asp-for="LivroID" class="form-control" asp-items="ViewBag.LivroID"></select>
+                <span asp-validation-for="LivroID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <br />
+
+        <input type="submit" value="Confirmar" class="btn btn-outline-primary" />
+
+    </form>
+</div>

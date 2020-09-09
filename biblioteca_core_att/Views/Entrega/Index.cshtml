@@ -1,0 +1,46 @@
+﻿@model IEnumerable<biblioteca_core_att.Models.Entrega>
+
+@{
+    ViewData["Title"] = "Biblioteca - Reservas";
+    var msg = ViewData["msg"];
+}
+
+<div>
+    <h3 class="center">Reservas</h3>
+    <br />
+    <p class="alert alert-secondary">
+        @msg
+    </p>
+
+    <br />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nome do Usuário</th>
+                <th scope="col">Nome do Livro</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Usuarios.Nome</td>
+                    <td>@item.Livros.Nome</td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@item.EntregaID">Editar</a> |
+                        <a asp-action="Excluir" asp-route-id="@item.EntregaID">Deletar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <br />
+
+    <p>
+        <a asp-action="Criar" class="btn btn-outline-success">Nova Reserva</a>
+    </p>
+
+</div>
