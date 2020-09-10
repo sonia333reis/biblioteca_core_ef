@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace biblioteca_core_att.Models
 {
-    public class Usuario
+    public class Funcionario
     {
         [Key]
-        public int UsuarioID { get; set; }
+        public int FuncionarioID { get; set; }
 
         public string Nome { get; set; }
 
@@ -20,8 +20,5 @@ namespace biblioteca_core_att.Models
         public string Email { get; set; }
 
         public string Senha { get; set; }
-
-        public virtual ICollection<Entrega> Entregas { get; set; }
-
     }
 }

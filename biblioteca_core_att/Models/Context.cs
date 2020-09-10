@@ -18,5 +18,7 @@ namespace biblioteca_core_att.Models
         public DbSet<Livro> Livros { get; set; }
 
         public DbSet<Entrega> Entregas { get; set; }
+
+        public DbSet<Funcionario> Funcionarios { get; set; }
     }
 }

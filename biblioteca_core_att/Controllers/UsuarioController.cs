@@ -32,7 +32,7 @@ namespace biblioteca_core_att.Controllers
 
 
         [HttpPost]
-        public IActionResult Criar([Bind("UsuarioID, Nome, Cpf, Idade, Email")] Usuario usuario)
+        public IActionResult Criar([Bind("UsuarioID, Nome, Cpf, Idade, Email, Senha")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace biblioteca_core_att.Controllers
 
 
         [HttpPost]
-        public IActionResult Editar(int id, [Bind("UsuarioID, Nome, Cpf, Idade, Email")] Usuario usuario)
+        public IActionResult Editar(int id, [Bind("UsuarioID, Nome, Cpf, Idade, Email, Senha")] Usuario usuario)
         {
             if (id != usuario.UsuarioID)
             {

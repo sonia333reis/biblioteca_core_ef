@@ -42,6 +42,16 @@
 
         <br />
 
+        <div class="row">
+            <div class="col-8">
+                <label class="texto">Senha:</label>
+                <input name="senha" asp-for="Senha" type="password" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+        </div>
+
+        <br />
+
         <input type="submit" value="Confirmar" class="btn btn-outline-primary" onclick="return validarForm('usuario')" />
 
     </form>
