@@ -10,16 +10,17 @@
     <br />
     @msg
     <br />
-    <form asp-action="Criar">
+    <form asp-action="Criar" id="form">
         <div class="row">
             <div class="col-6">
                 <label class="texto"> Nome de Usuário:</label>
-                <input asp-for="Nome" class="form-control" placeholder="Insira seu nome completo" />
+                <input name="nome" asp-for="Nome" class="form-control" placeholder="Insira seu nome completo" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="col-3">
                 <label class="texto">CPF:</label>
-                <input asp-for="Cpf" class="form-control" placeholder="Insira seu CPF" />
+                <input name="cpf" asp-for="Cpf" class="form-control" placeholder="Insira seu CPF"
+                       onfocus="javascript: outFormat(this);" onblur="javascript: cpfFormat(this);" maxlength="11" />
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
         </div>
@@ -29,19 +30,19 @@
         <div class="row">
             <div class="col-2">
                 <label class="texto">Idade:</label>
-                <input asp-for="Idade" class="form-control" placeholder="Insira sua Idade" />
+                <input name="idade" asp-for="Idade" class="form-control" placeholder="Insira sua Idade" />
                 <span asp-validation-for="Idade" class="text-danger"></span>
             </div>
             <div class="col-6">
                 <label class="texto">e-mail:</label>
-                <input asp-for="Email" type="email" class="form-control" placeholder="Insira seu e-mail" />
+                <input name="email" asp-for="Email" type="email" class="form-control" placeholder="Insira seu e-mail" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
 
-        <br/>
+        <br />
 
-        <input type="submit" value="Confirmar" class="btn btn-outline-primary" />
+        <input type="submit" value="Confirmar" class="btn btn-outline-primary" onclick="return validarForm('usuario')" />
 
     </form>
 </div>

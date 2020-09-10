@@ -10,11 +10,11 @@
     <br />
     @msg
     <br />
-    <form asp-action="Criar">
+    <form asp-action="Criar" id="form">
         <div class="row">
             <div class="col-6">
                 <label class="texto"> Nome de Livro:</label>
-                <input asp-for="Nome" class="form-control" placeholder="Insira o nome da obra" />
+                <input name="nome" asp-for="Nome" class="form-control" placeholder="Insira o nome da obra" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-6">
                 <label class="texto">Autor:</label>
-                <input asp-for="Autor" class="form-control" placeholder="Insira o nome do autor" />
+                <input name="autor" asp-for="Autor" class="form-control" placeholder="Insira o nome do autor" />
                 <span asp-validation-for="Autor" class="text-danger"></span>
             </div>
         </div>
@@ -31,14 +31,14 @@
         <div class="row">
             <div class="col-2">
                 <label class="texto">Idade:</label>
-                <input asp-for="Lancamento" class="form-control" type="date" />
+                <input name="lancamento" asp-for="Lancamento" class="form-control" type="date" />
                 <span asp-validation-for="Lancamento" class="text-danger"></span>
             </div>
         </div>
 
         <br />
 
-        <input type="submit" value="Confirmar" class="btn btn-outline-primary" />
+        <input type="submit" value="Confirmar" class="btn btn-outline-primary"  onclick="return validarForm('livro')" />
 
     </form>
 </div>
