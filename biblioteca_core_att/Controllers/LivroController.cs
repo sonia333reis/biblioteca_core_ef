@@ -117,5 +117,23 @@ namespace biblioteca_core_att.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult Search(string searchString)
+        {
+            ViewBag.Pesquisa = "";
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ViewBag.Pesquisa = searchString;
+                var livros = _context.Livros.Where(u => u.Nome.Contains(searchString));
+                ViewData["msg"] = "Existem " + livros.Count() + " resultados para este livro.";
+                return View("Index", livros);
+            }
+            else
+            {
+                ViewData["msg"] = "Nenhum nome foi inserido";
+                return RedirectToAction("SelectAllUsers");
+            }
+        }
     }
 }

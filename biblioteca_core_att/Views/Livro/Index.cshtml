@@ -5,44 +5,63 @@
     var msg = ViewData["msg"];
 }
 
-<div>
-    <h3 class="center">Livros</h3>
-    <br />
-    <p class="alert alert-secondary">
-        @msg
-    </p>
+    <div>
+        <h3 class="center">Livros</h3>
+        <br />
+        <p class="alert alert-secondary">
+            @msg
+        </p>
 
-    <br />
+        <br />
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Autor</th>
-                <th scope="col">Lançamento</th>
-                <th scope="col">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        @using (Html.BeginForm("Search", "Livro", null, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-10">
+                        Pesquisar:
+                        <input type="text" name="SearchString" id="SearchString" placeholder="Digite o nome do livro desejado"
+                               class="form-control" value="@ViewBag.Pesquisa" />
+                        <br />
+                        <button type="submit" class="btn btn-outline-warning">Pesquisar <!--<img alt="Pesquisar" src="~/img/icon/icons8-pesquisar-100.png" width="20" height="20" /> --> </button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <br />
+
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Nome</td>
-                    <td>@item.Autor</td>
-                    <td>@item.Lancamento</td>
-                    <td>
-                        <a asp-action="Editar" asp-route-id="@item.LivroID">Editar</a> |
-                        <a asp-action="Excluir" asp-route-id="@item.LivroID">Deletar</a>
-                    </td>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Lançamento</th>
+                    <th scope="col">Ações</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Nome</td>
+                        <td>@item.Autor</td>
+                        <td>@item.Lancamento</td>
+                        <td>
+                            <a asp-action="Editar" asp-route-id="@item.LivroID">Editar</a> |
+                            <a asp-action="Excluir" asp-route-id="@item.LivroID">Deletar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-    <br />
+        <br />
 
-    <p>
-        <a asp-action="Criar" class="btn btn-outline-success">Novo Livro</a>
-    </p>
+        <p>
+            <a asp-action="Criar" class="btn btn-outline-success">Novo Livro</a>
+        </p>
 
-</div>
+    </div>

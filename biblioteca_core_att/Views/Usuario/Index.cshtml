@@ -14,6 +14,24 @@
 
     <br/>
 
+    @using (Html.BeginForm("Search", "Usuario", null, FormMethod.Post))
+    {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-10">
+                        Pesquisar:
+                        <input type="text" name="SearchString" id="SearchString" placeholder="Digite o nome do livro desejado"
+                               class="form-control" value="@ViewBag.Pesquisa" />
+                        <br />
+                        <button type="submit" class="btn btn-outline-warning">Pesquisar <!--<img alt="Pesquisar" src="~/img/icon/icons8-pesquisar-100.png" width="20" height="20" /> --> </button>
+                    </div>
+                </div>
+            </div>
+    }
+
+    <br />
     <table class="table">
         <thead>
             <tr>

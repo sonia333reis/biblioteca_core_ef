@@ -11,7 +11,7 @@ namespace biblioteca_core_att.Controllers
     {
         private readonly Context _context;
 
-        public UsuarioController(Context context) 
+        public UsuarioController(Context context)
         {
             _context = context;
         }
@@ -30,20 +30,21 @@ namespace biblioteca_core_att.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         public IActionResult Criar([Bind("UsuarioID, Nome, Cpf, Idade, Email")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                try 
+                try
                 {
                     _context.Add(usuario);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
-                } catch (Exception e) 
+                }
+                catch (Exception e)
                 {
-                    ViewData["msg"] = ViewData["msg"] + " Erro ao salvar informações no banco de dados. Message ["+e+"]";
+                    ViewData["msg"] = ViewData["msg"] + " Erro ao salvar informações no banco de dados. Message [" + e + "]";
                     throw;
                 }
             }
@@ -70,7 +71,7 @@ namespace biblioteca_core_att.Controllers
             return View(usuario);
         }
 
-        
+
         [HttpPost]
         public IActionResult Editar(int id, [Bind("UsuarioID, Nome, Cpf, Idade, Email")] Usuario usuario)
         {
@@ -116,6 +117,24 @@ namespace biblioteca_core_att.Controllers
                 throw;
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Search(string searchString)
+        {
+            ViewBag.Pesquisa = "";
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ViewBag.Pesquisa = searchString;
+                var usuarios = _context.Usuarios.Where(u => u.Nome.Contains(searchString));
+                ViewData["msg"] = "Existem " + usuarios.Count() + " resultados para este usuário.";
+                return View("Index", usuarios);
+            }
+            else
+            {
+                ViewData["msg"] = "Nenhum nome foi inserido";
+                return RedirectToAction("SelectAllUsers");
+            }
         }
     }
 }
