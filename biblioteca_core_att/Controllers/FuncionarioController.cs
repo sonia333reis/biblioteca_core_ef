@@ -5,22 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace biblioteca_core_att.Controllers
 {
-    public class UsuarioController : Controller
+    public class FuncionarioController : Controller
     {
         private readonly Context _context;
 
-        public UsuarioController(Context context)
+        public FuncionarioController(Context context)
         {
             _context = context;
         }
 
         public IActionResult Index()
         {
-            var usuarios = _context.Usuarios.ToList();
+            var funcionarios = _context.Funcionarios.ToList();
 
-            ViewData["msg"] = "Existem [" + usuarios.Count + "] usuários cadastrados";
+            ViewData["msg"] = "Existem [" + funcionarios.Count + "] funcionários cadastrados";
 
-            return View(usuarios);
+            return View(funcionarios);
         }
 
         public IActionResult Criar()
@@ -28,15 +28,14 @@ namespace biblioteca_core_att.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public IActionResult Criar([Bind("UsuarioID, Nome, Cpf, Idade, Email, Senha")] Usuario usuario)
+        public IActionResult Criar([Bind("FuncionarioID, Nome, Cpf, Idade, Email, Senha")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Add(usuario);
+                    _context.Add(funcionario);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -48,32 +47,31 @@ namespace biblioteca_core_att.Controllers
             }
 
             ViewData["msg"] = "Não foi possível completar operação";
-            return View(usuario);
+            return View(funcionario);
         }
 
         public IActionResult Editar(int? id)
         {
             if (id == null)
             {
-                ViewData["msg"] = "Obrigatório informar usuário";
+                ViewData["msg"] = "Obrigatório informar funcionário";
                 return NotFound();
             }
 
-            var usuario = _context.Usuarios.Find(id);
-            if (usuario == null)
+            var funcionario = _context.Funcionarios.Find(id);
+            if (funcionario == null)
             {
-                ViewData["msg"] = "Usuário não encontrado";
+                ViewData["msg"] = "Funcionário não encontrado";
                 return NotFound();
             }
 
-            return View(usuario);
+            return View(funcionario);
         }
 
-
         [HttpPost]
-        public IActionResult Editar(int id, [Bind("UsuarioID, Nome, Cpf, Idade, Email, Senha")] Usuario usuario)
+        public IActionResult Editar(int id, [Bind("FuncionarioID, Nome, Cpf, Idade, Email, Senha")] Funcionario funcionario)
         {
-            if (id != usuario.UsuarioID)
+            if (id != funcionario.FuncionarioID)
             {
                 ViewData["msg"] = "Comportamento inesperado";
                 return NotFound();
@@ -83,7 +81,7 @@ namespace biblioteca_core_att.Controllers
             {
                 try
                 {
-                    _context.Update(usuario);
+                    _context.Update(funcionario);
                     _context.SaveChanges();
                 }
                 catch (Exception e)
@@ -102,11 +100,11 @@ namespace biblioteca_core_att.Controllers
             {
                 if (id == null)
                 {
-                    ViewData["msg"] = "Obrigatório informar usuário";
+                    ViewData["msg"] = "Obrigatório informar funcionário";
                     return NotFound();
                 }
-                Usuario usuario = _context.Usuarios.Find(id);
-                _context.Remove(usuario);
+                Funcionario funcionario = _context.Funcionarios.Find(id);
+                _context.Remove(funcionario);
                 _context.SaveChanges();
             }
             catch (Exception e)
@@ -124,9 +122,9 @@ namespace biblioteca_core_att.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewBag.Pesquisa = searchString;
-                var usuarios = _context.Usuarios.Where(u => u.Nome.Contains(searchString));
-                ViewData["msg"] = "Existem " + usuarios.Count() + " resultados para este usuário.";
-                return View("Index", usuarios);
+                var funcionarios = _context.Funcionarios.Where(u => u.Nome.Contains(searchString));
+                ViewData["msg"] = "Existem " + funcionarios.Count() + " resultados para este funcionário.";
+                return View("Index", funcionarios);
             }
             else
             {

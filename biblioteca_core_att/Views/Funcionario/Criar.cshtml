@@ -1,0 +1,58 @@
+﻿@model biblioteca_core_att.Models.Funcionario
+
+@{
+    ViewData["Title"] = "Biblioteca - Funcionários";
+    var msg = ViewData["msg"];
+}
+
+<div>
+    <h3 class="center">Cadastrar Funcionários</h3>
+    <br />
+    @msg
+    <br />
+    <form asp-action="Criar" id="form">
+        <div class="row">
+            <div class="col-6">
+                <label class="texto"> Nome do Funcionário:</label>
+                <input name="nome" asp-for="Nome" class="form-control" placeholder="Insira seu nome completo" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label class="texto">CPF:</label>
+                <input name="cpf" asp-for="Cpf" class="form-control" placeholder="Insira seu CPF"
+                       onfocus="javascript: outFormat(this);" onblur="javascript: cpfFormat(this);" maxlength="11" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-2">
+                <label class="texto">Idade:</label>
+                <input name="idade" asp-for="Idade" class="form-control" placeholder="Insira sua Idade" />
+                <span asp-validation-for="Idade" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label class="texto">e-mail:</label>
+                <input name="email" asp-for="Email" type="email" class="form-control" placeholder="Insira seu e-mail" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-8">
+                <label class="texto">Senha:</label>
+                <input name="senha" asp-for="Senha" type="password" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+        </div>
+
+        <br />
+
+        <input type="submit" value="Confirmar" class="btn btn-outline-primary" onclick="return validarForm('usuario')" />
+
+    </form>
+</div>
